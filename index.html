@@ -88,7 +88,7 @@
         </span>
         <h1>Prenota la tua donazione</h1>
         <p class="lead">Consulta gli <strong>slot liberi</strong> e prenota in pochi clic. Nessun login richiesto.</p>
-        <p class="lead timestamp">Ultimo aggiornamento: <span id="lastUpdate">16/08/2025 08:43</span></p></div>
+        <p class="lead timestamp">Ultimo aggiornamento: <span id="lastUpdate">16/08/2025 08:44</span></p></div>
       <div aria-hidden="true">
         <!-- illustrazione minimal -->
         <svg viewBox="0 0 300 220" width="100%" role="img" aria-label="Decorazione">
@@ -195,8 +195,9 @@
         let show = true;
         const txt = rowText(tr);
         if(q && !txt.includes(q)) show = false;
-        if(onlyToday && !txt.includes(todayStr)) show = false;
-        if(datePick){
+        const todayIso = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+if(onlyToday && !(txt.includes(todayStr) || txt.includes(todayIso))) show = false;
+     if(datePick){
           // Converte yyyy-mm-dd in dd/mm/yyyy e verifica nella riga
           const [y,m,d] = datePick.split('-');
           const it = `${d}/${m}/${y}`;
