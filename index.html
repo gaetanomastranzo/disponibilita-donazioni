@@ -75,18 +75,6 @@
     iframe{width:100%;height:100%;border:0}
 
     .timestamp{font-variant-numeric:tabular-nums}
-input[type="date"]{-webkit-appearance:auto;appearance:auto}
-/* Mantieni il picker nativo su iOS (non nascondere la UI) */
-input[type="date"]{-webkit-appearance:auto;appearance:auto}
-
-/* Mascherina "gg / mm / aaaa" per input date vuoto */
-.date-mask{position:relative;display:inline-block}
-.date-mask .date-input{padding-right:44px} /* spazio per icona nativa */
-.date-mask__placeholder{
-  position:absolute; left:14px; top:50%; transform:translateY(-50%);
-  pointer-events:none; color:#6b7280; font-size:15px; letter-spacing:.3px; opacity:.9;
-}
-.date-mask__placeholder[hidden]{display:none}
   </style>
 </head>
 <body>
@@ -145,12 +133,7 @@ input[type="date"]{-webkit-appearance:auto;appearance:auto}
             <input id="q" type="search" placeholder="Cerca per data, orario…" />
           </div>
           <button class="pill" id="todayBtn" type="button" aria-pressed="false">Solo oggi</button>
-          <div class="date-mask">
-  <input class="pill date-input" id="datePick" type="date" aria-label="Filtra per data"
-         min="2025-08-19"
-         max="2025-10-18" />
-  <span class="date-mask__placeholder" id="dateMaskPh">gg / mm / aaaa</span>
-</div>
+          <input class="pill" id="datePick" type="date" aria-label="Filtra per data" />
         </div>
         <div class="right">
           <button class="cta" id="openModal" type="button">Prenota ora</button>
@@ -319,20 +302,6 @@ if(onlyToday && !(txt.includes(todayStr) || txt.includes(todayIso))) show = fals
     // Avvio: applica filtri e migliora la tabella
     applyFilters();
     enhanceTable();
-/* Maschera "gg / mm / aaaa" per iOS (placeholder assente su type=date) */
-(function(){
-  var el = document.getElementById('datePick');
-  var ph = document.getElementById('dateMaskPh');
-  if(!el || !ph) return;
-  function toggleMask(){
-    ph.hidden = (document.activeElement === el) || !!el.value;
-  }
-  el.addEventListener('focus', toggleMask);
-  el.addEventListener('blur', toggleMask);
-  el.addEventListener('change', toggleMask);
-  el.addEventListener('input', toggleMask);
-  toggleMask(); // stato iniziale
-})();
   </script>
 
   <!--
